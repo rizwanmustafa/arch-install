@@ -1,0 +1,34 @@
+Pacman Packages:
+xorg
+plasma-desktop
+sddm
+mariadb
+networkmanager
+kdeconnect
+kate
+iwd
+dhcpcd
+kwin
+vim
+openssh
+ark
+dolphin
+konsole
+okular
+firefox
+ksysguard
+plasma-systemmonitor
+partitionmanager
+discord
+krunner
+transmission-qt
+git
+
+
+AUR Packages:
+paru
+google-chrome
+mongodb-bin
+kalk
+htop
+visual-studio-code-bin
