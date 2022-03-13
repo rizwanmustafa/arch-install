@@ -16,18 +16,30 @@ while [ "$INTERNET" != true ]; do
     else
         INTERNET="false"
         echo -e "Internet available: ${RED}false${NC}"
-        echo -e "Executing: ip link\n"
-        ip link
+        execute_cmd "ip link"
         echo -en "\nEthernet (E) / Wifi (W)? "
         read NET_CHOICE
         NET_CHOICE=${NET_CHOICE,,}
-        if [ "$NET_CHOICE" = "w" ]; then
-            echo "Executing: iwctl"
-            iwctl
-        else
-            read -p "Press Enter after plugging in an ethernet cable... "
-        fi
+        [ "$NET_CHOICE" = "w" ] && \
+        execute_cmd iwctl || \
+        read -p "Press Enter after plugging in an ethernet cable... "
     fi
 done;
 
 timedatectl set-ntp true # Update the system clock
+
+execute_cmd() {
+    echo -e "Executing: $1"
+    $1
+    echo -e "Command exited wth code $?"
+}
+
+print_disk_data() {
+    DISK_DATA=$(sudo fdisk -l | grep --color=never /dev/sd. | tr ',' ' ')
+    DISK_DATA="${DISK_DATA//Disk/'\nDisk'}"
+    echo -e "\nDisk(s) Information:"
+    echo -e "$DISK_DATA"
+}
+
+# Partition the disks
+print_disk_data
